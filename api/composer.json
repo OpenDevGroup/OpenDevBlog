@@ -5,7 +5,8 @@
     "require":{
 		"php":">=5.3.0",
 		"slim/slim": "~2.5",
-		"erusev/parsedown-extra": "dev-master",
+        "slim/views": "~0.1",
+        "twig/twig": "~1.16"
 		"lusitanian/oauth": "0.3.*"
 	},
     "autoload":{
