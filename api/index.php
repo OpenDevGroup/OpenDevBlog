@@ -30,7 +30,7 @@ $app->get('/', function () use($app) {
 });
 
 $app->notfound(function () use($app) {
-	echo "404 Page"''
+	$app->render('404.twig');
 });
 
 $app->group('/v1', function () use($app) {
