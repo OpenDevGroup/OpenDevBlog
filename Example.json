@@ -1,0 +1,48 @@
+{
+  "posts": [
+    {
+      "id": "1",
+      "slug": "the-post-slug",
+      "created": "timestamp",
+      "readTime": "timestamp",
+      "title": "The Post Title",
+      "header": "image file location",
+      "content": "This is the post content",
+      "published": "Published date",
+      "links": {
+        "author": 1,
+        "categories": [1, 2, 8, 15]
+      }
+    }
+  ],
+  "categories": [
+    {
+      "id": "id",
+      "created": "timestamp",
+      "createdBy": "{authorId}",
+      "name": "category name",
+      "posts": [1, 2, 3, 4, 5]
+    }, {
+      "id": "id",
+      "created": "timestamp",
+      "createdBy": "{authorId}",
+      "name": "category name",
+      "posts": [6, 7, 8, 9, 10]
+    }
+  ],
+  "authors": [
+    {
+      "id": "id",
+      "created": "timestamp",
+      "name": "author name",
+      "username": "username",
+      "posts": [1, 3, 5]
+    }, {
+      "id": "id",
+      "created": "timestamp",
+      "name": "author name",
+      "username": "username",
+      "posts": [2, 4, 6]
+    }
+  ]
+}
