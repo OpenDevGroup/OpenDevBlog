@@ -1,0 +1,16 @@
+{
+    "name":"Open Dev Blog",
+    "homepage":"https://github.com/OpenDevGroup",
+    "license":"GNU",
+    "require":{
+		"php":">=5.3.0",
+		"slim/slim": "~2.5",
+		"erusev/parsedown-extra": "dev-master",
+		"lusitanian/oauth": "0.3.*"
+	},
+    "autoload":{
+        "psr-4":{
+            "OpenDev\\": "src"
+        }
+    }
+}
