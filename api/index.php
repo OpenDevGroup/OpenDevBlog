@@ -10,6 +10,8 @@
 require 'vendor/autoload.php';
 
 $app = new \Slim\Slim();
+$app->view = new \Slim\Views\Twig();
+$app->view->setTemplatesDirectory('src/views/');
 $app->configureMode('development', function () use($app) {
 	$app->config(array(
 		'debug' => true,
@@ -25,6 +27,10 @@ $app->configureMode('development', function () use($app) {
 
 $app->get('/', function () use($app) {
 	$app->redirect('/v1', 301);
+});
+
+$app->notfound(function () use($app) {
+	echo "404 Page"''
 });
 
 $app->group('/v1', function () use($app) {
@@ -58,10 +64,6 @@ $app->group('/v1', function () use($app) {
 		})
 	});
 
-});
-
-$app->notfound(function () use($app) {
-	echo "404 Page"''
 });
 
 /* AND DEPLOY */
