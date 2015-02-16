@@ -34,8 +34,9 @@ $app->notfound(function () use($app) {
 });
 
 $app->group('/v1', function () use($app) {
-	
+
 	$app->contentType('application/json');
+
 	$posts = new \OpenDev\Posts($app->config("database"));
 	$authors = new \OpenDev\Authors($app->config("database"));
 	$categories = new \OpenDev\Categories($app->config("database"));
@@ -43,31 +44,41 @@ $app->group('/v1', function () use($app) {
 	$app->group('/posts', function () use($app, $posts) {
 		$app->get('/', function () use($app, $posts) {
 			// Get all of the posts from the Model
+			// echo json_encode($result, JSON_PRETTY_PRINT);
 		});
 		$app->get('/:id', function () use($app, $posts) {
 			// Get a single Post
+			// echo json_encode($result, JSON_PRETTY_PRINT);
 		})
 	});
 
 	$app->group('/categories', function () use($app, $categories) {
 		$app->get('/', function () use($app, $categories) {
 			// Get all of the Categories
+			// echo json_encode($result, JSON_PRETTY_PRINT);
 		});
 		$app->get('/:id', function () use($app, $categories) {
 			// Get a single Category
+			// echo json_encode($result, JSON_PRETTY_PRINT);
 		});
 	});
 
 	$app->group('/authors', function () use($app, $authors) {
 		$app->get('/', function () use($app, $authors) {
 			// Get all Authors
+			// echo json_encode($result, JSON_PRETTY_PRINT);
 		});
 		$app->get('/:id', function () use($app, $authors) {
 			// Get a single Author
+			// echo json_encode($result, JSON_PRETTY_PRINT);
 		})
 	});
-
 });
+
+$app->group('/admin', function () use($app) {
+	// This is the main admin area for the blog.
+});
+
 
 /* AND DEPLOY */
 $app->run();
