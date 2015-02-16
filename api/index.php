@@ -36,30 +36,33 @@ $app->notfound(function () use($app) {
 $app->group('/v1', function () use($app) {
 	
 	$app->contentType('application/json');
+	$posts = new \OpenDev\Posts($app->config("database"));
+	$authors = new \OpenDev\Authors($app->config("database"));
+	$categories = new \OpenDev\Categories($app->config("database"));
 
-	$app->group('/posts', function () use($app) {
-		$app->get('/', function () use($app) {
+	$app->group('/posts', function () use($app, $posts) {
+		$app->get('/', function () use($app, $posts) {
 			// Get all of the posts from the Model
 		});
-		$app->get('/:id', function () use($app) {
+		$app->get('/:id', function () use($app, $posts) {
 			// Get a single Post
 		})
 	});
 
-	$app->group('/categories', function () use($app) {
-		$app->get('/', function () use($app) {
+	$app->group('/categories', function () use($app, $categories) {
+		$app->get('/', function () use($app, $categories) {
 			// Get all of the Categories
 		});
-		$app->get('/:id', function () use($app) {
+		$app->get('/:id', function () use($app, $categories) {
 			// Get a single Category
 		});
 	});
 
-	$app->group('/authors', function () use($app) {
-		$app->get('/', function () use($app) {
+	$app->group('/authors', function () use($app, $authors) {
+		$app->get('/', function () use($app, $authors) {
 			// Get all Authors
 		});
-		$app->get('/:id', function () use($app) {
+		$app->get('/:id', function () use($app, $authors) {
 			// Get a single Author
 		})
 	});
