@@ -10,6 +10,9 @@
 namespace OpenDev;
 
 use PDO;
+use \OpenDev\Authors;
+use \OpenDev\Posts;
+use \OpenDev\Util;
 
 class Categories extends Model {
 

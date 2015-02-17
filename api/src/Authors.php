@@ -10,6 +10,9 @@
 namespace OpenDev;
 
 use PDO;
+use \OpenDev\Posts;
+use \OpenDev\Categories;
+use \OpenDev\Util;
 
 class Authors extends Model {
 
