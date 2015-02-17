@@ -14,8 +14,7 @@ The **namespace** for this application is going to be `namespace OpenDev;`
 THe URI structure is going to follow a simple but useful pattern :
 
 * /api/v1/posts/
-* /api/v1/posts/{:id}
 * /api/v1/categories/
-* /api/v1/categories/{:id}
 * /api/v1/authors/
-* /api/v1/authors/{:id}
+
+As **Ember JS** does alot of the lifting off the front end there is actually very little for the API to do at this stage, as we move through the versions I am sure the API will become more complex - but for now simplicity is king
