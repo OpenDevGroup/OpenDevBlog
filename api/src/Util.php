@@ -22,19 +22,6 @@ class Util {
     public static function wordCount($str) {
         return count(preg_split('/\s+/', strip_tags($str), null, PREG_SPLIT_NO_EMPTY));
     }
-    
-    public static function readingTime($str) {
-        $mycontent = $str;
-        $word      = self::wordCount(strip_tags($mycontent));
-        $m         = floor($word / 175);
-        $s         = floor($word % 175 / (175 / 60));
-        
-        if ($m >= 1) {
-            return $est = $m . ' min' . ($m == 1 ? '' : 's');
-        } elseif ($s <= 59) {
-            return $est = $s . ' second' . ($s == 1 ? '' : 's');
-        }
-    }
 
     public static function readingTime($content) {
         $word = self::wordCount($content);
