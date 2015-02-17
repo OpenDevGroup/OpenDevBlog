@@ -16,7 +16,18 @@ use \OpenDev\humanDate;
 class Categories extends Model {
 
     public function getCategories() {
-	return array("id" => 1, "title" => "Category 1");
+		$sql = "SELECT id, name from categories";
+		$query = $this->db->prepare($sql);
+    	$query->execute();
+    	return $query->fetchAll();
+    }
+
+    public function getCategory($id) {
+    	$sql = "SELECT id, name from categories where id = :id LIMIT 1";
+    	$query = $this->db->prepare($sql);
+    	$parameters = [":id" => $id];
+    	$query->execute($parameters;
+    	return $query->fetch();
     }
 
 }
