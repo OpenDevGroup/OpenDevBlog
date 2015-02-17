@@ -1,17 +1,18 @@
 {
-    "name":"Open Dev Blog",
-    "homepage":"https://github.com/OpenDevGroup",
-    "license":"GNU",
-    "require":{
+	"name":"CodeWithSteve",
+	"homepage":"http://www.codewithsteve.co.uk",
+	"license":"GNU",
+	"require":{
 		"php":">=5.3.0",
 		"slim/slim": "~2.5",
-        "slim/views": "~0.1",
-        "twig/twig": "~1.16"
+		"slim/views": "~0.1",
+		"slim/middleware": "dev-master",
+		"twig/twig": "~1.16",
 		"lusitanian/oauth": "0.3.*"
 	},
-    "autoload":{
-        "psr-4":{
-            "OpenDev\\": "src"
-        }
-    }
+	"autoload":{
+		"psr-4":{
+			"OpenDev\\": "src"
+		}
+	}
 }
