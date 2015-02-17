@@ -13,6 +13,7 @@ use PDO;
 use \OpenDev\Authors;
 use \OpenDev\Categories;
 use \OpenDev\Util;
+use \OpenDev\humanDate;
 
 class Posts extends Model {
 
