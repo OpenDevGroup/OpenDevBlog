@@ -10,8 +10,6 @@
 namespace OpenDev;
 
 use PDO;
-use \OpenDev\Authors;
-use \OpenDev\Posts;
 use \OpenDev\Util;
 use \OpenDev\humanDate;
 
