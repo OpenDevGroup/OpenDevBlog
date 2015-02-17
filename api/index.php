@@ -51,35 +51,36 @@ $app->notfound(function () use($app) {
 
 $app->group('/v1', function () use($app, $posts, $categories, $authors) {
     $app->contentType('application/json');
+
     $app->get('/', function () use($app) {
-	echo "API Base";
+	    echo "API Base";
     });
+    
     $app->group('/posts', function () use($app, $posts) {
         $app->get('/', function () use($app, $posts) {
-	    echo "All Posts";
-	    print_r($posts->getPosts());
+	        echo json_encode($posts->getPosts(), JSON_PRETTY_PRINT);
         });
-	$app->get('/:id', function () use($app, $posts) {
-	    echo "Post ID : ";
+	    $app->get('/:id', function () use($app, $posts) {
+	        echo "Post ID : ";
         });
     });
+
     $app->group('/categories', function () use($app, $categories) {
-	$app->get('/', function () use($app, $categories) {
-	    echo "All Categories";
-	    print_r($categories->getCategories());
+	    $app->get('/', function () use($app, $categories) {
+	        echo json_encode($categories->getCategories(), JSON_PRETTY_PRINT);
         });
         $app->get('/:id', function () use($app, $categories) {
-	    echo "Category ID : ";
+	        echo "Category ID : ";
         });
     });
+
     $app->group('/authors', function () use($app, $authors) {
-	$app->get('/', function () use($app, $authors) {
-	    echo "All Authors";
-	    print_r($authors->getAuthors());
+	    $app->get('/', function () use($app, $authors) {
+	        echo json_encode($authors->getAuthors(), JSON_PRETTY_PRINT);
         });
-	$app-> get('/:id', function () use($app, $authors) {
-	    echo "Author ID :";
-	});
+	    $app-> get('/:id', function () use($app, $authors) {
+	        echo "Author ID :";
+	    });
     });
 
 });
