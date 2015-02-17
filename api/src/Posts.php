@@ -18,7 +18,7 @@ class Posts extends Model {
     public function getPosts() {
     	$sql = "SELECT post_meta.id, post_meta.title, post_meta.categories, post_meta.published, post_meta.author, post_content.content, post_content.media_id
     			FROM post_meta 
-    			LEFT OUTTER JOIN post_meta.id ON post_content.id";
+    			LEFT OUTER JOIN post_meta.id ON post_content.id";
     	$query = $this->db->prepare($sql);
     	$query->execute();
     	$allPosts = $query->fetchAll();
