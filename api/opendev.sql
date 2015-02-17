@@ -29,6 +29,7 @@ CREATE TABLE `opendev`.`post_meta`(
 	`title` VARCHAR(50) NOT NULL,
 	`categories` INT(30) NOT NULL,
 	`published` INT(10) NOT NULL,
+	`author` VARCHAR(32) NOT NULL,
 	PRIMARY KEY (`id`),
 	UNIQUE KEY `id` (`id`))
 ENGINE=InnoDB DEFAULT CHARSET=utf8;
