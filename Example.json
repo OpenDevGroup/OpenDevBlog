@@ -2,9 +2,9 @@
   "posts": [
     {
       "id": "1",
-      "slug": "the-post-slug",
       "created": "timestamp",
       "readTime": "timestamp",
+      "wordCount": "number of words",
       "title": "The Post Title",
       "header": "image file location",
       "content": "This is the post content",
