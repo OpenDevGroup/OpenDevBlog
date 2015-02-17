@@ -18,16 +18,6 @@ class Util {
     const SECONDS_IN_A_WEEK = 604800;
     const SECONDS_IN_A_MONTH = 2592000;
     const SECONDS_IN_A_YEAR = 31536000;
-    
-
-    public static function debugToConsole($data) {
-    	if(is_array($data) || is_object($data)) {
-		echo("<script>console.log('PHP: ".json_encode($data)."');</script>");
-	} else {
-		echo("<script>console.log('PHP: ".$data."');</script>");
-	}
-    }
-
    
     public static function wordCount($str) {
         return count(preg_split('/\s+/', strip_tags($str), null, PREG_SPLIT_NO_EMPTY));
@@ -43,6 +33,17 @@ class Util {
             return $est = $m . ' min' . ($m == 1 ? '' : 's');
         } elseif ($s <= 59) {
             return $est = $s . ' second' . ($s == 1 ? '' : 's');
+        }
+    }
+
+    public static function readingTime($content) {
+        $word = self::wordCount($content);
+        $min = floor($word / 175);
+        $sec = floor($word % 175 / (175 / 60));
+        if($min > 1) {
+            return $time = $min . ' min' . ($min == 1 ? '' : 's');
+        } elseif($sec <= 59) {
+            return $time = $sec . ' second' . ($sec == 1 ? '' : 's');
         }
     }
     
@@ -69,43 +70,7 @@ class Util {
         
         return $slug;
     }
-    
-    public static function sizeFormat($bytes, $decimals = 0) {
-        $bytes = floatval($bytes);
-        
-        if ($bytes < 1024) {
-            return $bytes . ' B';
-        } else if ($bytes < pow(1024, 2)) {
-            return number_format($bytes / 1024, $decimals, '.', '') . ' KiB';
-        } else if ($bytes < pow(1024, 3)) {
-            return number_format($bytes / pow(1024, 2), $decimals, '.', '') . ' MiB';
-        } else if ($bytes < pow(1024, 4)) {
-            return number_format($bytes / pow(1024, 3), $decimals, '.', '') . ' GiB';
-        } else if ($bytes < pow(1024, 5)) {
-            return number_format($bytes / pow(1024, 4), $decimals, '.', '') . ' TiB';
-        } else if ($bytes < pow(1024, 6)) {
-            return number_format($bytes / pow(1024, 5), $decimals, '.', '') . ' PiB';
-        } else {
-            return number_format($bytes / pow(1024, 5), $decimals, '.', '') . ' PiB';
-        }
-    }
-    
-    public static function startsWith($string, $starts_with) {
-        return (strpos($string, $starts_with) === 0);
-    }
-    
-    public static function endsWith($string, $ends_with) {
-        return substr($string, -strlen($ends_with)) === $ends_with;
-    }
-    
-    public static function stringContains($haystack, $needle) {
-        return (strpos($haystack, $needle) !== false);
-    }
-    
-    public static function getFileExt($filename) {
-        return pathinfo($filename, PATHINFO_EXTENSION);
-    }
-    
+            
     public static function humanTimeDiff($from, $to = '', $as_text = FALSE, $suffix = ' ago') {
         if ($to == '') {
             $to = time();
@@ -348,118 +313,6 @@ class Util {
                 return 'eight';
             case '9':
                 return 'nine';
-        }
-    }
-    
-    public static function force_download($filename, $content = FALSE) {
-        if (!headers_sent()) {
-            // Required for some browsers
-            if (ini_get('zlib.output_compression')) {
-                @ini_set('zlib.output_compression', 'Off');
-            }
-            
-            header('Pragma: public');
-            header('Expires: 0');
-            header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-            
-            // Required for certain browsers
-            header('Cache-Control: private', FALSE);
-            
-            header('Content-Disposition: attachment; filename="' . basename(str_replace('"', '', $filename)) . '";');
-            header('Content-Type: application/force-download');
-            header('Content-Transfer-Encoding: binary');
-            
-            if ($content) {
-                header('Content-Length: ' . strlen($content));
-            }
-            
-            ob_clean();
-            flush();
-            
-            if ($content) {
-                echo $content;
-            }
-            
-            return TRUE;
-        } else {
-            return FALSE;
-        }
-    }
-    
-    public static function validate_email($possible_email) {
-        return (bool) filter_var($possible_email, FILTER_VALIDATE_EMAIL);
-    }
-    
-    public static function safeTruncate($string, $length, $append = '...') {
-        $ret        = substr($string, 0, $length);
-        $last_space = strrpos($ret, ' ');
-        
-        if ($last_space !== FALSE && $string != $ret) {
-            $ret = substr($ret, 0, $last_space);
-        }
-        
-        if ($ret != $string) {
-            $ret .= $append;
-        }
-        
-        return $ret;
-    }
-    
-    public static function ordinal($number) {
-        $test_c = abs($number) % 10;
-        
-        $ext = ((abs($number) % 100 < 21 && abs($number) % 100 > 4) ? 'th' : (($test_c < 4) ? ($test_c < 3) ? ($test_c < 2) ? ($test_c < 1) ? 'th' : 'st' : 'nd' : 'rd' : 'th'));
-        
-        return $number . $ext;
-    }
-    
-    public static function xap($in, $html = 'text', $iframe = false) {
-        if (is_array($in)) {
-            foreach ($in as &$item) {
-                $item = xap($item, $html);
-            }
-            return $in;
-            /**
-             * Make safe HTML
-             */
-        } elseif ($html === true) {
-            $in = preg_replace('/
-<[^a-z=>]*(link|script|object|applet|embed)[^>]*>? # Open tag
-(
-.* # Some content
-<\/[^>]*\\1[^>]*> # Close tag (with reference for tag name to open tag)
-)? # Section is optional
-/xims', '', $in);
-            /**
-             * Remove iframes (regular expression the same as previous)
-             */
-            if (!$iframe) {
-                $in = preg_replace('/
-<[^a-z=>]*iframe[^>]*>? # Open tag
-(
-.* # Some content
-<\/[^>]*iframe[^>]*> # Close tag
-)? # Section is optional
-/xims', '', $in);
-                /**
-                 * Allow iframes without inner content (for example, video from youtube)
-                 */
-            } else {
-                $in = preg_replace('/
-(<[^a-z=>]*iframe[^>]*>\s*) # Open tag
-[^<\s]+ # Search if there something that is not space or < character
-(<\/[^>]*iframe[^>]*>)? # Optional close tag
-/xims', '', $in);
-            }
-            $in = preg_replace('/(script|data|vbscript):/i', '\\1&#58;', $in);
-            $in = preg_replace('/(expression[\s]*)\(/i', '\\1&#40;', $in);
-            $in = preg_replace('/<[^>]*\s(on[a-z]+|dynsrc|lowsrc|formaction)=[^>]*>?/ims', '', $in);
-            $in = preg_replace('/(href[\s\t\r\n]*=[\s\t\r\n]*["\'])((?:http|https|ftp)\:\/\/.*?["\'])/ims', '\\1redirect/\\2', $in);
-            return $in;
-        } elseif ($html === false) {
-            return strip_tags($in);
-        } else {
-            return htmlspecialchars($in, ENT_NOQUOTES | ENT_HTML5 | ENT_DISALLOWED | ENT_SUBSTITUTE | ENT_HTML5);
         }
     }
     
