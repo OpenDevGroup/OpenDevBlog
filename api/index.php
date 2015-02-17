@@ -60,17 +60,11 @@ $app->group('/v1', function () use($app, $posts, $categories, $authors) {
         $app->get('/', function () use($app, $posts) {
 	        echo json_encode($posts->getPosts(), JSON_PRETTY_PRINT);
         });
-	    $app->get('/:id', function () use($app, $posts) {
-	        echo "Post ID : ";
-        });
     });
 
     $app->group('/categories', function () use($app, $categories) {
 	    $app->get('/', function () use($app, $categories) {
 	        echo json_encode($categories->getCategories(), JSON_PRETTY_PRINT);
-        });
-        $app->get('/:id', function () use($app, $categories) {
-	        echo "Category ID : ";
         });
     });
 
@@ -78,9 +72,6 @@ $app->group('/v1', function () use($app, $posts, $categories, $authors) {
 	    $app->get('/', function () use($app, $authors) {
 	        echo json_encode($authors->getAuthors(), JSON_PRETTY_PRINT);
         });
-	    $app-> get('/:id', function () use($app, $authors) {
-	        echo "Author ID :";
-	    });
     });
 
 });

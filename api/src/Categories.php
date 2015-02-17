@@ -22,12 +22,4 @@ class Categories extends Model {
     	return $query->fetchAll();
     }
 
-    public function getCategory($id) {
-    	$sql = "SELECT id, name from categories where id = :id LIMIT 1";
-    	$query = $this->db->prepare($sql);
-    	$parameters = [":id" => $id];
-    	$query->execute($parameters;
-    	return $query->fetch();
-    }
-
 }

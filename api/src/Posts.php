@@ -30,14 +30,4 @@ class Posts extends Model {
         return $postArray;
     }
 
-    public function getPost($id) {
-    	$sql = "SELECT post_meta.title, post_meta.categories, post_meta.published post_content.content, post_content.media_id
-    			FROM post_meta LEFT OUTTER JOIN post_meta.id ON post_content.id
-    			WHERE post_meta.id = :id LIMIT 1";
-    	$query = $this->db->prepare($sql);
-    	$parameters = [":id" => $id];
-    	$query->execute($parameters;
-    	return $query->fetch();
-    }
-
 }
